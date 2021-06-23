@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 class Sidebar extends Component {
 
     searchRef = React.createRef();
 
+    state = {
+        search: "",
+        redirect: false
+    }
+
     redirectToSearch = (e) => {
         e.preventDefault();
-        alert('hi');
+        
+        this.setState({
+            search: this.searchRef.current.value,
+            redirect: true
+        });
     }
 
     render() {
+
+        if(this.state.redirect){
+
+            return(
+                <Redirect to={'/redirect/'+this.state.search} />
+            );
+        }
         return (
 
             <aside id="sidebar">
