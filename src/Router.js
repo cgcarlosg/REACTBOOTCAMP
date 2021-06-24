@@ -10,6 +10,7 @@ import Blog from './components/Blog';
 import Formulario from './components/Formulario';
 import Search from './components/Search';
 import Article from './components/Article';
+import CreateArticle from './components/CreateArticle';
 
 class Router extends Component {
     render(){
@@ -24,6 +25,7 @@ class Router extends Component {
                 <Route exact path="/home" component={Home} />
                 <Route exact path="/blog" component={Blog} />
                 <Route exact path="/blog/articulo/:id" component={Article} />
+                <Route exact path="/blog/crear" component={CreateArticle} />
                 <Route exact path="/blog/busqueda/:search" component={Search} />
                 <Route exact path="/redirect/:search" render={
                     (props) => {

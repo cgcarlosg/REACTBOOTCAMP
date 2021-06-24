@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert';
 import Global from '../Global';
 import Moment from 'react-moment';
 import 'moment/locale/es';
@@ -35,7 +36,46 @@ class Article extends Component {
             });
     }
 
+    deleteArticle = (id) => {
+
+        swal({
+            title: "Esta seguro?",
+            text: "Una vez borrado no se podra recuperar el articulo",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        })
+            .then((willDelete) => {
+
+                if (willDelete) {
+                    axios.delete(this.url + 'article/' + id)
+                        .then(res => {
+                            this.setState({
+                                article: res.data.article,
+                                status: 'deleted'
+                            });
+
+                            swal(
+                                'Articulo eliminado',
+                                'El articulo ha sido borrado correctamente'
+                            );
+                        });
+                } else {
+                    swal("Articulo se mantiene!");
+                }
+
+            });
+
+
+
+    }
+
     render() {
+
+        if (this.state.status === 'deleted') {
+            return <Redirect to="/blog" />
+        }
+
         var article = this.state.article;
         return (
             <div className="center">
@@ -44,39 +84,44 @@ class Article extends Component {
                     {this.state.article &&
                         <article className="article-item article-detail">
                             <div className="image-wrap">
-                            {
-                              article.image !== null ? (
-                                <img src={this.url + 'get-image/' + article.image} alt={article.title} />
-                            ) : (
-                                <img src={Imagedefault} alt={article.title} />
-                            )
-                            }
+                                {
+                                    article.image !== null ? (
+                                        <img src={this.url + 'get-image/' + article.image} alt={article.title} />
+                                    ) : (
+                                        <img src={Imagedefault} alt={article.title} />
+                                    )
+                                }
                             </div>
 
-                            <h1 className="subheader">{this.state.article.title}</h1>
+                            <h1 className="subheader">{article.title}</h1>
                             <span className="date">
                                 <Moment locale="es" fromNow>{article.date}</Moment>
                             </span>
                             <p>
                                 {article.content}
                             </p>
-                          
+
+                            <button onClick={
+                                () => {
+                                    this.deleteArticle(article._id)
+                                }
+                            }
+
+                                className="btn btn-danger">Eliminar</button>
+                            <Link to="/blog" className="btn btn-warning">Editar</Link>
+
+
                             <div className="clearfix"></div>
                         </article>
                     }
 
-                    {!this.state.article && this.article.status === 'success' &&
-                    <div id="article">
-                        <h2 className="subheader">El articulo no existe</h2>
-                        <p>Intentalo de nuevo mas tarde</p>
-                    </div>
-                    }
+
 
                     {this.state.article == null &&
-                    <div id="article">
-                        <h2 className="subheader">Cargando...</h2>
-                        <p>Espera unos segundos</p>
-                    </div>
+                        <div id="article">
+                            <h2 className="subheader">Cargando...</h2>
+                            <p>Espera unos segundos</p>
+                        </div>
                     }
 
 

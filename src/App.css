@@ -188,7 +188,7 @@ body {
 .btn{
  display: block;
  background: black;
- color: white;
+ color: white !important;
  padding: 15px; 
  font-weight: bold;
  text-transform: uppercase;
@@ -202,10 +202,24 @@ body {
 
 .btn-success{
   background: rgb(23, 150, 19);
+  color: white;
 }
 
 .btn-success:hover{
   background:black;
+}
+
+.btn-danger{
+  background: rgb(243, 23, 7);
+  color: white !important;
+  float: left;
+  margin-right: 20px;
+}
+
+.btn-warning{
+  background: rgb(212, 148, 11);
+  color: white !important;
+  float: left; 
 }
 
 .mid-form{
@@ -223,7 +237,8 @@ body {
 }
 
 input[type="text"],
-textarea{
+textarea,
+input[type="file"]{
   width: 100%;
   min-height: 30px;
   border: 1px solid #ccc;
@@ -235,6 +250,10 @@ textarea{
 input[type="text"]:focus,
 textarea:focus{
   box-shadow: 0px 0px 5px #eee inset;
+}
+
+input[type="submit"]{
+  margin-top: 15px;
 }
 
 textarea{
