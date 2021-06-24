@@ -40,7 +40,7 @@ class Sidebar extends Component {
                     <p>Encuentra el artículo que buscas</p>
                     <form onSubmit= {this.redirectToSearch}>
                         <input type="text" name="search" ref={this.searchRef}/>
-                        <input type="submit" name="submit" value="Buscar" class="btn" />
+                        <input type="submit" name="submit" value="Buscar" className="btn" />
                     </form>
                 </div>
 

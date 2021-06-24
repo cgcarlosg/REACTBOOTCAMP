@@ -108,7 +108,7 @@ class Article extends Component {
                             }
 
                                 className="btn btn-danger">Eliminar</button>
-                            <Link to="/blog" className="btn btn-warning">Editar</Link>
+                            <Link to={"/blog/editar/"+article._id } className="btn btn-warning">Editar</Link>
 
 
                             <div className="clearfix"></div>
